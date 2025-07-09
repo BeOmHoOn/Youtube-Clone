@@ -5,6 +5,7 @@ import com.clone.metube.authentication.normal.dtos.AccountLoginRequest;
 import com.clone.metube.authentication.normal.dtos.AccountRegisterRequest;
 import com.clone.metube.authentication.normal.dtos.AccountUnregisterRequest;
 import com.clone.metube.authentication.normal.repositories.AccountRepository;
+import com.clone.metube.authentication.normal.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,30 +14,30 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/accounts")
 public class AccountController {
-    private final AccountRepository userRepository;
+    private final AccountService accountService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> userRequestRegister(@RequestBody AccountRegisterRequest registerRequest) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> register(@RequestBody AccountRegisterRequest registerRequest) {
+        return ResponseEntity.ok(accountService.register(registerRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> userRequestLogin(@RequestBody AccountLoginRequest loginRequest) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> login(@RequestBody AccountLoginRequest loginRequest) {
+        return ResponseEntity.ok(accountService.login(loginRequest));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> userRequestLogout(@RequestBody AccountLoginRequest logoutRequest) {
+    public ResponseEntity<?> logout(@RequestBody AccountLoginRequest logoutRequest) {
         return ResponseEntity.ok("");
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<?> userRequestDetailUpdate(@RequestBody AccountDetailUpdateRequest detailUpdateRequest) {
+    public ResponseEntity<?> update(@RequestBody AccountDetailUpdateRequest detailUpdateRequest) {
         return ResponseEntity.ok("");
     }
 
     @DeleteMapping("/unregister")
-    public ResponseEntity<?> userRequestUnregister(@RequestBody AccountUnregisterRequest unregisterRequest) {
+    public ResponseEntity<?> unregister(@RequestBody AccountUnregisterRequest unregisterRequest) {
         return ResponseEntity.ok("");
     }
 }

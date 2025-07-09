@@ -25,7 +25,7 @@ public class AccountService {
         return new AccountRegisterResponse();
     }
 
-    public AccountLoginResponse login(AccountLoginRequest loginRequest) throws Exception {
+    public AccountLoginResponse login(AccountLoginRequest loginRequest) throws AccountNotFoundException {
         var email = loginRequest.getEmail();
         var password = pwdEncoder.encode(loginRequest.getPassword());
 
