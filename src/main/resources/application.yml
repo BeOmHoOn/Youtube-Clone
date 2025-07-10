@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 spring:
   security:
     oauth2:
@@ -5,8 +9,8 @@ spring:
         registration:
           naver:
             client-id: "ovKtskiMDk7P70pG7Ugc"
-            client-secret: "8zF_Crxeye"
-            redirect-uri: "{baseUrl}/api/oauth2?code={registrationId}"
+            client-secret: "h2m0aPTFEa"
+            redirect-uri: "{baseUrl}/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
             scope:
               - name
