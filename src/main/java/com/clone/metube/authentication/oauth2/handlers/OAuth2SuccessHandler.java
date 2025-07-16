@@ -25,8 +25,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         CustomOAuth2User customUser = (CustomOAuth2User) authentication.getPrincipal();
         String email = customUser.getEmail();
 
-        String token = jwtTokenProvider.generateAccessToken(email);
+        String token = jwtTokenProvider.generateAccessToken(email, true);
 
+        System.out.println(token);
         response.sendRedirect("http://localhost:3000/oauth2/redirect?token=" + token);
     }
 }

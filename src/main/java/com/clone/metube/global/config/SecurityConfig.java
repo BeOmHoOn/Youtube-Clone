@@ -13,13 +13,13 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final OAuth2Service oAuth2Service;
-    private final JwtTokenProvider jwtTokenProvider; // JwtTokenProvider 주입
-
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2Service))
-                        .successHandler(new OAuth2SuccessHandler(jwtTokenProvider)) // 핸들러 직접 생성
+                        .successHandler(oAuth2SuccessHandler)
                         .authorizationEndpoint(authEndpoint -> authEndpoint
                                 .baseUri("/oauth2/authorization") // -> /oauth2/authorization/naver
                         )

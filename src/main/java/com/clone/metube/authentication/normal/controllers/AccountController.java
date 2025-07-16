@@ -6,6 +6,7 @@ import com.clone.metube.authentication.normal.dtos.AccountRegisterRequest;
 import com.clone.metube.authentication.normal.dtos.AccountUnregisterRequest;
 import com.clone.metube.authentication.normal.repositories.AccountRepository;
 import com.clone.metube.authentication.normal.services.AccountService;
+import com.clone.metube.global.annotations.RequireAccessToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class AccountController {
         return ResponseEntity.ok(accountService.login(loginRequest));
     }
 
+    @RequireAccessToken
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestBody AccountLoginRequest logoutRequest) {
         return ResponseEntity.ok("");

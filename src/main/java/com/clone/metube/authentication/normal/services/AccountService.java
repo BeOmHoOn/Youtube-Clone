@@ -6,9 +6,8 @@ import com.clone.metube.authentication.normal.dtos.AccountLoginResponse;
 import com.clone.metube.authentication.normal.dtos.AccountRegisterRequest;
 import com.clone.metube.authentication.normal.dtos.AccountRegisterResponse;
 import com.clone.metube.authentication.normal.entities.Account;
-import com.clone.metube.authentication.normal.exceptions.AccountNotFoundException;
+import com.clone.metube.global.exceptions.AccountNotFoundException;
 import com.clone.metube.authentication.normal.repositories.AccountRepository;
-import com.clone.metube.global.enums.ExceptionMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class AccountService {
         var password = pwdEncoder.encode(loginRequest.getPassword());
 
         Account account = accountRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new AccountNotFoundException(ExceptionMessage.ACCOUNT_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new AccountNotFoundException());
 
         // 이후 jwt 토큰 도입
 

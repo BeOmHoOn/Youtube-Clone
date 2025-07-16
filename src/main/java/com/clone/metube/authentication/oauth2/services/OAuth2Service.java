@@ -34,8 +34,6 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
 
         String provider = userRequest.getClientRegistration().getRegistrationId();
 
-        System.out.println("소셜로그인 제공자 정보 확인완료");
-
         switch (provider) {
             case "naver":
                 oAuth2UserInfo = new NaverUserInfo(attributes);
@@ -45,14 +43,10 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 throw new OAuth2AuthenticationException("소셜 로그인을 지원하지 않는 사이트입니다.");
         }
 
-        System.out.println("소셜로그인 유저정보 생성");
-
         String email = oAuth2UserInfo.getEmail();
         String name = oAuth2UserInfo.getName();
         String providerId = oAuth2UserInfo.getProviderId();
         Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(UserRole.USER.name()));
-
-        System.out.println("소셜로그인 유저정보 가져오기 완료");
 
         var oAuth2Account = oAuth2AccountRepository.findByEmail(email)
                 .orElseGet(() -> oAuth2AccountRepository.save(
@@ -65,10 +59,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                         )
                 );
 
-        System.out.println("소셜로그인 유저 DB체킹완료");
-
         var customUser = new CustomOAuth2User(email, name, attributes, authorities);
-        System.out.println("반환 직전: " + customUser.getClass());
 
         return customUser;
     }

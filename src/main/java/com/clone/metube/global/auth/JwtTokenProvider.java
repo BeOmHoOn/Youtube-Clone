@@ -5,7 +5,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.Map;
+
+import com.clone.metube.global.constants.CONSTANTS;
 
 @Component
 public class JwtTokenProvider {
@@ -25,40 +26,43 @@ public class JwtTokenProvider {
         this.signingKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    private final Long ACCESS_TOKEN_EXPIRY_MILLI = 5L * 60L * 1000L; // 5분
-    private final Long REFRESH_TOKEN_EXPIRY_MILLI = 24L * 60L * 60L * 1000L; // 24시간
-
-    public String generateRefreshToken(String email) {
+    public String generateRefreshToken(String email, boolean isOAuth2Login) {
         Date issueAt = new Date(System.currentTimeMillis());
-        Date expiryDate = new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRY_MILLI);
+        Date expiryDate = new Date(System.currentTimeMillis() + CONSTANTS.REFRESH_TOKEN_EXPIRY_MILLI);
 
         return Jwts.builder()
                 .setSubject(email)
+                .setClaims(Map.of("isOAuth2Login", isOAuth2Login))
                 .setIssuedAt(issueAt)
                 .setExpiration(expiryDate)
                 .signWith(signingKey)
                 .compact();
     }
 
-    public String generateAccessToken(String email) {
+    public String generateAccessToken(String email, boolean isOAuth2Login) {
         Date issueAt = new Date(System.currentTimeMillis());
-        Date expiryDate = new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRY_MILLI);
+        Date expiryDate = new Date(System.currentTimeMillis() + CONSTANTS.ACCESS_TOKEN_EXPIRY_MILLI);
 
         return Jwts.builder()
                 .setSubject(email)
+                .setClaims(Map.of("isOAuth2Login", isOAuth2Login))
                 .setIssuedAt(issueAt)
                 .setExpiration(expiryDate)
                 .signWith(signingKey)
                 .compact();
     }
 
-    public String getUserId(Claims token) {
+    public String getEmail(Claims token) {
         return token.getSubject();
+    }
+
+    public boolean isOAuth2Login(Claims token) {
+        return token.get("isOAuth2Login").equals(Boolean.TRUE);
     }
 
     public Claims parseToken(String token) throws JwtException {
         return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
