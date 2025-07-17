@@ -5,7 +5,7 @@ import com.clone.metube.authentication.oauth2.entities.OAuth2Account;
 import com.clone.metube.authentication.oauth2.interfaces.OAuth2UserInfo;
 import com.clone.metube.authentication.oauth2.repositories.OAuth2AccountRepository;
 import com.clone.metube.authentication.oauth2.userinfos.NaverUserInfo;
-import com.clone.metube.global.enums.UserRole;
+import com.clone.metube.global.enums.AccountRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,7 +46,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         String email = oAuth2UserInfo.getEmail();
         String name = oAuth2UserInfo.getName();
         String providerId = oAuth2UserInfo.getProviderId();
-        Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(UserRole.USER.name()));
+        Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(AccountRole.USER.name()));
 
         var oAuth2Account = oAuth2AccountRepository.findByEmail(email)
                 .orElseGet(() -> oAuth2AccountRepository.save(
@@ -54,7 +54,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                                         .email(email)
                                         .provider(provider)
                                         .providerId(providerId)
-                                        .role(UserRole.USER)
+                                        .role(AccountRole.USER)
                                         .build()
                         )
                 );

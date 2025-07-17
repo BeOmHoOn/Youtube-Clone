@@ -10,7 +10,10 @@ public enum AccountError {
     EMPTY_ID_OR_PW(HttpStatus.BAD_REQUEST, "AUTH_001", "계정 혹은 비밀번호는 공백일 수 없습니다."),
     ACCOUNT_NOT_FOUND(HttpStatus.UNAUTHORIZED, "AUTH_002", "계정 혹은 비밀번호가 잘못 입력되었습니다."),
     OAUTH2_LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "AUTH_003", "소셜 로그인에 실패하였습니다."),
-    ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_004", "로그인정보가 만료되었습니다.");
+    ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_004", "로그인정보가 만료되었습니다."),
+    REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_005", "로그인정보가 만료되었습니다."),
+    EMAIL_ALREADY_USE(HttpStatus.BAD_REQUEST, "AUTH_006", "이미 가입된 이메일입니다.");
+
 
     private HttpStatus httpStatus;
     private String errorCode;

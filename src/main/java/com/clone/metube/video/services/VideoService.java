@@ -1,6 +1,6 @@
 package com.clone.metube.video.services;
 
-import com.clone.metube.authentication.normal.repositories.AccountRepository;
+import com.clone.metube.authentication.repositories.AccountRepository;
 import com.clone.metube.video.dtos.VideoUploadRequest;
 import com.clone.metube.video.dtos.VideoUploadResponse;
 import com.clone.metube.video.entities.Video;

@@ -1,6 +1,6 @@
-package com.clone.metube.authentication.normal.repositories;
+package com.clone.metube.authentication.repositories;
 
-import com.clone.metube.authentication.normal.entities.Account;
+import com.clone.metube.authentication.entitiy.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.clone.metube.authentication.interfaces;
 
-import com.clone.metube.global.enums.UserRole;
+import com.clone.metube.global.enums.AccountRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,14 +16,16 @@ import java.time.LocalDateTime;
 @Getter
 public abstract class AccountEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(unique = true)
     protected String email;
 
+    private String password;
+
     @Enumerated(EnumType.STRING)
-    protected UserRole role;
+    protected AccountRole role;
 
     @Column(updatable = false)
     protected LocalDateTime createdAt;

@@ -1,15 +1,13 @@
 package com.clone.metube.video.services;
 
-import com.clone.metube.authentication.normal.repositories.AccountRepository;
+import com.clone.metube.authentication.repositories.AccountRepository;
 import com.clone.metube.video.dtos.CommentDto;
 import com.clone.metube.video.dtos.CommentListRequest;
-import com.clone.metube.video.entities.Comment;
 import com.clone.metube.video.repositories.CommentRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

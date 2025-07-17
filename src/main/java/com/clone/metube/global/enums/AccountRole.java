@@ -1,6 +1,6 @@
 package com.clone.metube.global.enums;
 
-public enum UserRole {
+public enum AccountRole {
     ADMIN,
     USER
 }

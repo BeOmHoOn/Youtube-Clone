@@ -1,4 +1,4 @@
-package com.clone.metube.authentication.normal.entities;
+package com.clone.metube.authentication.entitiy;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,7 +10,10 @@ public class AccountDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
+
+    private String nickName;
+
 }

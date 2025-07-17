@@ -3,7 +3,6 @@ package com.clone.metube.authentication.oauth2.entities;
 import com.clone.metube.authentication.interfaces.AccountEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

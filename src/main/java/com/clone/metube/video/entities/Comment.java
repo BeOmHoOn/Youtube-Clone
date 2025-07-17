@@ -1,6 +1,6 @@
 package com.clone.metube.video.entities;
 
-import com.clone.metube.authentication.normal.entities.Account;
+import com.clone.metube.authentication.entitiy.Account;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

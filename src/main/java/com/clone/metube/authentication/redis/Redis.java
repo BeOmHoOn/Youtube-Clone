@@ -12,43 +12,43 @@ import java.time.Duration;
 public class Redis {
     private final StringRedisTemplate redisTemplate;
 
-    public void saveRefreshToken(String userId, String refreshToken, long expirySecond) {
+    public void saveRefreshToken(String target, String refreshToken, long expirySecond) {
         redisTemplate.opsForValue().set(
-                CONSTANTS.REFRESH_TOKEN_PREFIX + userId,
+                CONSTANTS.REFRESH_TOKEN_PREFIX + target,
                 refreshToken,
                 Duration.ofSeconds(expirySecond)
         );
     }
 
-    public String getRefreshToken(String userId) {
+    public String getRefreshToken(String target) {
         return redisTemplate.opsForValue().get(
-                CONSTANTS.REFRESH_TOKEN_PREFIX + userId
+                CONSTANTS.REFRESH_TOKEN_PREFIX + target
         );
     }
 
-    public void deleteRefreshToken(String userId) {
+    public void deleteRefreshToken(String target) {
         redisTemplate.delete(
-                CONSTANTS.REFRESH_TOKEN_PREFIX + userId
+                CONSTANTS.REFRESH_TOKEN_PREFIX + target
         );
     }
 
     public void blockAccessToken(String accessToken, long expirySecond) {
         redisTemplate.opsForValue().set(
-                CONSTANTS.BLOCK_ACCESS_TOKEN_PREFIX + accessToken,
-                "Sign Out",
+                CONSTANTS.BLACKLIST_ACCESS_TOKEN_PREFIX + accessToken,
+                "Logout",
                 Duration.ofSeconds(expirySecond)
         );
     }
 
-    public boolean hasRefreshToken(String userId) {
+    public boolean hasRefreshToken(String target) {
         return redisTemplate.hasKey(
-                CONSTANTS.REFRESH_TOKEN_PREFIX + userId
+                CONSTANTS.REFRESH_TOKEN_PREFIX + target
         );
     }
 
     public boolean isAccessTokenBlocked(String accessToken) {
         return redisTemplate.hasKey(
-                CONSTANTS.BLOCK_ACCESS_TOKEN_PREFIX + accessToken
+                CONSTANTS.BLACKLIST_ACCESS_TOKEN_PREFIX + accessToken
         );
     }
 }
